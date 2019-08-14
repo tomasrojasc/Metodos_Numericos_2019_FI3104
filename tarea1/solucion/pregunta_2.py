@@ -1,6 +1,9 @@
 import scipy.integrate as inte
 from funciones import *
 
+
+
+
 #primero, hacviendo el cambio de variable pertinente, vamos a calcular la integral con
 # la variable theta y no phi. phi=2*theta
 
