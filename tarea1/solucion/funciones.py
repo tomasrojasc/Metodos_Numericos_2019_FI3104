@@ -50,10 +50,11 @@ def Aprox2nd(f,a,b,h):
 
 #P2:
 
+#función que se encarga del criterio de convergencia
 def Conv(I_0, I_1):
     return np.divide(np.abs(I_1-I_0),np.abs(I_0))
 
-
+#regla del trapecio iterando: duplica el nro de puntos en cada iteración hasta cumplir con el error pedido
 def Trap_iter(f, a, b, k):
     n = 100
     error = .01
@@ -62,7 +63,7 @@ def Trap_iter(f, a, b, k):
     partition_0 = np.linspace(a,b,n)
     partition_1 = np.linspace(a,b,2*n)
     #evaluaciones de integrales
-    I_0=delta*.5*f(partition_0[0],k)+f(partition_0[-1],k)+2*np.sum(f(partition_0[1:-1],k))
+    I_0=delta*.5*(f(partition_0[0],k)+f(partition_0[-1],k)+2*np.sum(f(partition_0[1:-1],k)))
     I_1=I_0*.5+np.sum(f(partition_1[1::2],k))*delta*.5
     #redefino cositas
     n=2*n
@@ -76,5 +77,6 @@ def Trap_iter(f, a, b, k):
         I_1 = I_n
         delta=delta/2
 
+    #si llegamos acá es porque se cumplió
     #devuelve una integral mejor basado en las últimas dos calculadas con método de trapecio
     return (4/3)*I_1-(1/3)*I_0

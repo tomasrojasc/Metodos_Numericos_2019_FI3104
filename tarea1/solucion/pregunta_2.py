@@ -10,16 +10,25 @@ from funciones import *
 #primero hacemos la funcion
 
 def f(theta,k):
+    '''
+    Define la funcion que vamos a usar
+    :param theta: corresponde a la variable luego del cambio de variable
+    :param k: corresponde a la constante que liga el
+    :return: devuelve la función
+    '''
     return 2/(np.pi*np.sqrt(1-k**2*np.sin(theta)**2))
 
 #la integral va de 0 a pi/2 con el cambio de variable
 phi_0=np.linspace(0.0001,np.pi/2.,100)
 k=np.sin(phi_0/2.)
+
 solution_0=[]
 
 for i in k:
     res=Trap_iter(f,0,np.pi/2.-.0000005,i)
     solution_0.append(res)
+
+
 
 
 solution_1=[]

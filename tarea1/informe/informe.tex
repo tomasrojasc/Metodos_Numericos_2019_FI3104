@@ -74,8 +74,8 @@
 %% CONFIGURACION DEL DOCUMENTO =================================================
 %% Llenar con la información pertinente al curso y la tarea
 %%
-\newcommand{\fechaentrega}{XX/XX/XXXX XX:XX hrs}
-\newcommand{\semestre}{201XB}
+\newcommand{\fechaentrega}{14/08/2019 23:59 hrs}
+\newcommand{\semestre}{2019B}
 %% =============================================================================
 %% =============================================================================
 
@@ -87,37 +87,70 @@
   {\uppercase{\LARGE \bf Informe Tarea 1}}
 \end{center}
 
-\noindent{\Large Valentino González}\\
-\noindent{\Large RUT:XX.XXX.XXX-X}\\
-\noindent{\Large Github: @thevalentino}
+\noindent{\Large Tomás Rojas C.}\\
+\noindent{\Large RUT:19.688.339-8}\\
+\noindent{\Large Github: @tomasrojasc}
 
 
 %% =============================================================================
 %% =============================================================================
-\section{Introducción}
+\section{Pregunta 1}
+Para la primera parte de la tares, teníamos que comparar dos maneras de
+calcular derivadas numéricamente.
 
-El objetivo de esta tarea es encontrar el valor de $a$ que resuelve la Ecuación
-(1) del enunciado. Si $x$ es una variable aleatoria sacada de la distribución
-descrita en el enunciado, entonces $a$ representa un valor que asegura que los
-valores aleatorios de $x$ serán mayores que $a$ solo un 5\% de las veces.
+para esto, la función a evaluar fue $f(x)=\sin(x/2)$ y el punto a evaluar
+(dado mi RUT) fue $x=1.339$ . El primer método a evaluar fue el siguiente:
 
 \begin{equation}
-0.05 = \int_{a}^{\infty} \frac{1}{\sqrt{2\pi}} \exp\left({\frac{-y^2}{2}}\right) dy
+  f'(x)=\frac{f(x+h)-f(x)}{h}
 \end{equation}
 
-La ecuación a resolver incluye el cálculo de una integral que debe ser
-regularizada pues sus límites van de $0$ a $\infty$. Implementaremos un cambio
-de variable que regulariza los límites y luego una función que calcule la
-integral de forma numérica para resolverla para distintos valores de $a$.
+Mientras que el método propuesto es el del enunciado.
 
-Finalmente implementaremos una función que busque el valor de $a$ que hace que la
-integral original valga 0.05.
+Para lograr la derivada tenemos dos funciones que nos permiten usar ambos métodos
+a la vez de especificar el grado de precisión deseado.
 
-\section{Desarrollo}
 
-Lo primero es regularizar la integral. Para ello seguimos la sugerencia del
-enunciado y aplicamos el cambio de variable $u=1/y$, con lo que el problema se
+A continuación podemos ver un gráfico donde la línea verde punteada es
+el valor que nos da la derivada real de la función importada desde el paquete
+math de python.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[height=8cm]{P1.png}
+  \caption{Comparación de los dos métodos con distintos grados de precisión.}
+\end{figure}
+
+Es importante notar que el primer gráfico, a diferencia de los otros dos, tiene
+ escala logarítmica y no lineal. Notamos que el método depende en gran medida
+ del nivel precisión que usemos, por ejemplo, para float32, la precisión es tan
+  baja, que al truncar para valores de $h$ pequeños, obtenemos divisiones por cero,
+  lo que hace que nuestra aproximación esté muy lejos del valor real, pero vemos
+  que para $h$ del órden de $10^{-5}$ se comporta mejor, pero el rango donde esta aproximación es fiable es muy pequeño. Por otro lado, vemos que con la aproximación propuesta
+  en el enunciado esta convergencia es mucho más rápida al valor de la línea punteada. También vemos que el intervalo de $h$
+  para el cual la aproximación de (1) es fiable, es siempre menor que el de la
+  aproximación del enunciado, esto es un punto a considerar ya que nos dice cuánto
+  cambio de resolución acepta nuestro algoritmo, lo cual es muy útil ya que si
+  tenemos una función errática y una que se comporta mejor en el sentido que no
+  tiene cambios de concavidad brusco y tiene derivadas pequeñas, podemos usar la
+  misma función con distintos $h$ y esperar un buen resultado sin tener que hacer
+  otra implementación.
+
+  En síntesis, si usamos un número de mayor presición, logramos que el rango donde nuestra aproximación es útil, en términos de $h$ sea mucho más amplio.
+
+
+
+
+\section{Pregunta 2:}
+
+Lo primero es regularizar la integral. Para ello usamos el siguiente cambio de variable\\ $\sin\theta = \frac{\sin(\phi/2)}{\sin (\phi_/2)}} $ y $k=\sin(\phi_0/2)$, con lo que el problema se
 transforma en:
+
+\begin{equation}
+  \frac{T}{T_0}=\frac{2}{\pi}\int_0^{\frac{\pi}{2}}  \frac{d\theta}{\sqrt(1-k^2 \sin^2(\theta))}
+\end{equation}
+
+
 
 \begin{equation}
 0.05 = \int_0^{1/a} \frac{1}{\sqrt{2\pi}u^2} \exp\left({\frac{-1}{2u^2}}\right) du

@@ -91,6 +91,7 @@ for i in range(3):
 AX[2].set_xlabel('Tamaño h')
 fig.legend(['O(h)','O($h^4$)'])
 fig.tight_layout()
+plt.savefig('../informe/P1.png',ppi=300)
 plt.show()
 
 
