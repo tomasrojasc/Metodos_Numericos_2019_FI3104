@@ -169,7 +169,7 @@ restó es despreciable con respecto al dominio de integración, por lo que es po
 argumentar que sigue siendo una buena aproximación para nuestro problema.
 
 En cuanto a la velocidad de nuestra implementación, al usar \%timeit obtivimos que para la función ``Evalua'' una vuelta tarda en promedio $11.1 ms \pm 286 \mu s$
-en cambio, (teniendo en cuenta que la aproximación implementada cumplió el criterio de convergencia con $n=200$, por lo que usaremos el mismo $n$ en las implementaciones de scipy) tenemos que \emph{scipy.integrate.trapz}
+en cambio, (teniendo en cuenta que la aproximación implementada cumplió el criterio de convergencia con $n=200$, por lo que usaremos el mismo $n$ en las implementaciones de scipy) tenemos que \emph{scipy.integrate.trapz} demoró en promedio $4.38 ms \pm 218 \mu s$. Esta drástica diferencia radica en que la implementación de scipy está hecha en un lenguaje compilado, probablemente C o FORTRAN mientras que la nuestra está en uno interpretado, en este caso Python.
 
 
 
