@@ -147,74 +147,35 @@ Lo primero es regularizar la integral. Para ello usamos el siguiente cambio de v
 transforma en:
 
 \begin{equation}
-  \frac{T}{T_0}=\frac{2}{\pi}\int_0^{\frac{\pi}{2}}  \frac{d\theta}{\sqrt(1-k^2 \sin^2(\theta))}
+  \frac{T}{T_0}=\frac{2}{\pi}\int_0^{\frac{\pi}{2}}  \frac{d\theta}{\sqrt{1-k^2 \sin^2\theta}}
 \end{equation}
 
 
+Al integrar para un muestreo de los $\phi_0$ indicados en el enunciado, tenemos el siguiente gráfico:
 
-\begin{equation}
-0.05 = \int_0^{1/a} \frac{1}{\sqrt{2\pi}u^2} \exp\left({\frac{-1}{2u^2}}\right) du
-\end{equation}
 
-La forma de la función a integrar se puede apreciar en la Figura 1. Llamaremos
-a esta función $f(u)$.
+
 
 \begin{figure}[!ht]
   \centering
-  \includegraphics[height=8cm]{../solucion/integral.pdf}
-  \caption{La función que vamos a integrar.}
+  \includegraphics[height=8cm]{../informe/P2.png}
+  \caption{Resultado de la integral para distintos $\phi_0$}
 \end{figure}
 
-Para integrar $f(u)$ utilizaremos la función \texttt{scipy.interpolate.quad},
-la cual es una implementación de la librería \texttt{QUADPACK} escrita en
-\texttt{FORTRAN}. Esta librería implementa el método de {\it cuadratura
-adaptativa} e intenta automáticamente escoger el algoritmo necesario para
-calcular la integral con una precisión dada por el usuario. Para más
-información: https://en.wikipedia.org/wiki/QUADPAC
 
-Definimos entonces la función:
+Para lograr esto hubo que restar un poco el dominio original y restarle a $\pi/2$
+un poco con la intención de evitar divisiones por cero, de todas maneras, lo que se
+restó es despreciable con respecto al dominio de integración, por lo que es posible
+argumentar que sigue siendo una buena aproximación para nuestro problema.
 
-\begin{equation}
-  I(a) =  \int_0^{1/a} \frac{1}{\sqrt{2\pi}u^2} \exp\left({\frac{-1}{2u^2}}\right) du
-\end{equation}
+En cuanto a la velocidad de nuestra implementación, al usar \%timeit obtivimos que para la función ``Evalua'' una vuelta tarda en promedio $11.1 ms \pm 286 \mu s$
 
-cuya forma se muestra en la Figura (2). $I(a)$ se calcula numéricamente con la
-función \texttt{quad} con sus parámetros por defecto. Los más importantes son
-las tolerancias absoluta y relativa: {\it epsabs=1.49e-08, epsrel=1.49e-08}, y
-el límite máximo de sub-intervalos para el algoritmo adaptativo: {\it
-limit=50}.
 
-Es importante notar que la función $f(u)$ se indefine en $u=0$. Sin embargo,
-como se aprecia en la Figura (1), el área bajo la curva en las cercanías de
-cero pequeña por, lo que podríamos partir la integral en algún valor $\epsilon
-\gtrsim 0$. El algoritmo de \texttt{quad} es capaz de manejar esta indefinición
-automáticamente, por lo que no implementamos ningún cambio relacionado a la
-indefinición de la función $f(u)$.
 
-\begin{figure}[!hb]
-  \centering
-  \includegraphics[height=8cm]{../solucion/solucion.pdf}
-  \caption{La función $I(a)$. Buscamos el valor de $a$ para el cual la función
-  toma el valor 0.05 (linea azul horizontal punteada). Utilizando el algoritmo
-de newton, encontramos la solución $a^*=1.64$ (línea roja vertical punteada).}
-\end{figure}
 
-Finalmente, es necesario resolver la ecuación:
 
-\begin{equation}
-  I(a^*) - 0.05 = 0
-\end{equation}
 
-Esto lo hacemos utilizando el método de newton (en realidad de la secante),
-implementado en \texttt{scipy.optimize.newton}. Utilizamos los parámetros por
-defecto, en particular, la tolerancia absoluta {\it tol=1.48e-08} y el número
-máximo de iteraciones {\it maxiter=50}. Le damos como punto de partida el valor
-$a_0=1$. El algoritmo converge luego de $7$ iteraciones encontrando el valor
-$a^*= 1.64485363$.
 
-Otros valores del punto de partida convergen a un valor muy cercano con
-diferencias en el número de iteraciones necesarias. Por ejemplo para $a_0=0.5$,
-el algoritmo converge luego de 8 iteraciones.
 
 \section{Discusión y Conclusiones}
 

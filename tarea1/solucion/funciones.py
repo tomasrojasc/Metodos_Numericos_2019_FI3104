@@ -79,4 +79,4 @@ def Trap_iter(f, a, b, k):
 
     #si llegamos acá es porque se cumplió
     #devuelve una integral mejor basado en las últimas dos calculadas con método de trapecio
-    return (4/3)*I_1-(1/3)*I_0
+    return (4/3)*I_1-(1/3)*I_0,n
