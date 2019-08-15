@@ -169,7 +169,7 @@ restó es despreciable con respecto al dominio de integración, por lo que es po
 argumentar que sigue siendo una buena aproximación para nuestro problema.
 
 En cuanto a la velocidad de nuestra implementación, al usar \%timeit obtivimos que para la función ``Evalua'' una vuelta tarda en promedio $11.1 ms \pm 286 \mu s$
-
+en cambio, (teniendo en cuenta que la aproximación implementada cumplió el criterio de convergencia con $n=200$, por lo que usaremos el mismo $n$ en las implementaciones de scipy) tenemos que \emph{scipy.integrate.trapz}
 
 
 
@@ -179,17 +179,7 @@ En cuanto a la velocidad de nuestra implementación, al usar \%timeit obtivimos 
 
 \section{Discusión y Conclusiones}
 
-Si $x$ es una variable aleatoria sacada de una gausiana con parámetros $\mu=0$
-y $\sigma=1$, entonces sólo tomará valores mayores a $a^*=1.64$ el 5\% de las
-veces.
-
-Si bien este problema involucra el cálculo de una integral de límites
-indefinidos (Ecuación 1), el cambio de variable $u = 1/y$ resulta en una
-función bien comportada. En particular, la suavidad de la función (ver Figura
-2), asegura que algoritmos como el de la {\it secante} para buscar raíces
-converjan de manera robusta (casi independiente del punto de partida elegido),
-y en pocas [sic.] iterasiones.
-
+Podemos concluir que por un lado la presición es muy importante al resolver problemas numéricos, pero hay que tener en cuenta que hay consecuencias en la precisión y esto es la demanda computacional, ya que siempre es una aproximación y por lo mismo nos podemos dar libertades como las hechas en la pregunta 2, donde cortamos el dominio de integración para evitar problemas al evaluar la función.
 
 
 \end{document}
