@@ -1,0 +1,194 @@
+\documentclass[letter, 11pt]{article}
+%% ================================
+%% Packages =======================
+\usepackage[utf8]{inputenc}      %%
+\usepackage[T1]{fontenc}         %%
+\usepackage{lmodern}             %%
+\usepackage[spanish]{babel}      %%
+\decimalpoint                    %%
+\usepackage{fullpage}            %%
+\usepackage{fancyhdr}            %%
+\usepackage{graphicx}            %%
+\usepackage{amsmath}             %%
+\usepackage{color}               %%
+\usepackage{mdframed}            %%
+\usepackage[colorlinks]{hyperref}%%
+%% ================================
+%% ================================
+
+%% ================================
+%% Page size/borders config =======
+\setlength{\oddsidemargin}{0in}  %%
+\setlength{\evensidemargin}{0in} %%
+\setlength{\marginparwidth}{0in} %%
+\setlength{\marginparsep}{0in}   %%
+\setlength{\voffset}{-0.5in}     %%
+\setlength{\hoffset}{0in}        %%
+\setlength{\topmargin}{0in}      %%
+\setlength{\headheight}{54pt}    %%
+\setlength{\headsep}{1em}        %%
+\setlength{\textheight}{8.5in}   %%
+\setlength{\footskip}{0.5in}     %%
+%% ================================
+%% ================================
+
+%% =============================================================
+%% Headers setup, environments, colors, etc.
+%%
+%% Header ------------------------------------------------------
+\fancypagestyle{firstpage}
+{
+  \fancyhf{}
+  \lhead{\includegraphics[height=4.5em]{LogoDFI.jpg}}
+  \rhead{FI3104-1 \semestre\\
+         Métodos Numéricos para la Ciencia e Ingeniería\\
+         Prof.: \profesor}
+  \fancyfoot[C]{\thepage}
+}
+
+\pagestyle{plain}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+%% -------------------------------------------------------------
+%% Environments -------------------------------------------------
+\newmdenv[
+  linecolor=gray,
+  fontcolor=gray,
+  linewidth=0.2em,
+  topline=false,
+  bottomline=false,
+  rightline=false,
+  skipabove=\topsep
+  skipbelow=\topsep,
+]{ayuda}
+%% -------------------------------------------------------------
+%% Colors ------------------------------------------------------
+\definecolor{gray}{rgb}{0.5, 0.5, 0.5}
+%% -------------------------------------------------------------
+%% Aliases ------------------------------------------------------
+\newcommand{\scipy}{\texttt{scipy}}
+%% -------------------------------------------------------------
+%% =============================================================
+%% =============================================================================
+%% CONFIGURACION DEL DOCUMENTO =================================================
+%% Llenar con la información pertinente al curso y la tarea
+%%
+\newcommand{\tareanro}{5}
+\newcommand{\fechaentrega}{26/09/2019 23:59 hrs}
+\newcommand{\semestre}{2019B}
+\newcommand{\profesor}{Valentino González}
+%% =============================================================================
+%% =============================================================================
+
+
+\begin{document}
+\thispagestyle{firstpage}
+
+\begin{center}
+  {\uppercase{\LARGE \bf Tarea \tareanro}}\\
+  Fecha de entrega: \fechaentrega
+\end{center}
+
+
+%% =============================================================================
+%% ENUNCIADO ===================================================================
+\noindent{\large \bf Problema 1}
+
+\noindent{\bf El péndulo de Kapitza.} Considere una vara ideal sin masa de
+largo $L=1 m$, conectada a una masa $m$ en un extremo, y en el otro extremo a un
+punto que oscila sinusoidalmente en la dirección vertical con frecuencia $w_1$ y
+amplitud $A=L/2$. Se puede demostrar que la ecuación de movimiento para este
+péndulo es:
+
+$$ \frac{d^2 \phi(t)}{dt^2} =
+          -w_0^2 sin(\phi) - \frac{A}{L}w_1^2 cos(w_1 t) sin(\phi) $$
+
+\noindent donde $\phi$ es el ángulo que forma la vara contra la vertical y
+$w_0=\sqrt{g/L}$. Definiremos $\lambda=\frac{A w_1}{2 w_0 L}$ y estudiaremos el
+comportamiento del péndulo para $\lambda=1, 2$ y $3$. Considere además las
+siguientes condiciones iniciales:
+
+\begin{enumerate}
+  \item $\phi(t=0) = 0.00RRR$ y velocidad angular $0$.
+  \item $\phi(t=0) = \pi - 0.00RRR$ y velocidad angular $0$.
+\end{enumerate}
+
+\noindent donde $RRR$ son los últimos 3 dígitos de su RUT, antes del dígito
+verificador.
+
+Integre la ecuación del péndulo de Kapitza utilizando su propia implementación
+del algoritmo de Runge-Kutta de orden 4. Note que debe realizar la integración
+para 3 valores distintos de $\lambda$ y 2 sets de condiciones iniciales, es
+decir, debe hacerlo 6 veces.
+
+Ahora elija uno de los 6 resultados anteriores --uno que le haya parecido
+interesante-- y realice la integración una vez más utilizando alguna
+implementación de Runge-Kutta de libre disposición (lo más sencillo es buscar
+en \texttt{scipy.integrate}). Compare este nuevo resultado con el obtenido
+anteriormente en términos de la precisión de la solución, y del tiempo de
+ejecución.
+
+
+%% FIN ENUNCIADO ===============================================================
+%% =============================================================================
+
+\vspace{1em}
+\noindent{\bf Instrucciones importantes.}
+\begin{itemize}
+
+  \item Utilice \texttt{git} durante el desarrollo de la tarea para mantener un
+    historial de los cambios realizados. La siguiente
+    \href{https://education.github.com/git-cheat-sheet-education.pdf}{cheat
+      sheet} le puede ser útil. \textbf{Esta vez revisaremos el uso apropiado
+    de la herramienta y asignaremos una fracción del puntaje a este ítem.}
+    Realice cambios pequeños y guarde su progreso (a través de \emph{commits})
+    regularmente. No guarde código que no corre o compila (si lo hace por algún
+    motivo deje un mensaje claro que lo indique). Escriba mensajes claros que
+    permitan hacerse una idea de lo que se agregó y/o cambió de un
+    \texttt{commit} al siguiente.
+
+  \item También revisaremos su uso correcto de \texttt{python}. Si define una
+    función relativametne larga o con muchos parámetros, recuerde escribir el
+    \emph{docstring} que describa los parámetros que recibe la función, el
+    output, y el detalle de qué es lo que hace la función. Recuerde que
+    generalmente es mejor usar varias funciones cortas (que hagan una sola cosa
+    bien) que una muy larga (que lo haga todo).  Utilice nombres explicativos
+    tanto para las funciones como para las variables de su código.  El mejor
+    nombre es aquel que permite entender qué hace la función sin tener que leer
+    su implementación.
+
+  \item Para \texttt{python} existe una guía de estilo sintáctico
+    (\texttt{\href{https://www.python.org/dev/peps/pep-0008/}{PEP8}}) que
+    entrega un set de reglas simples para crear código ordenado y fácilmente
+    legible por otras personas. Por ejemplo, se recomienda no usar lineas más
+    largas que 79 caracteres. Para esta tarea, su código debe aprobar
+    \texttt{pep8}. En \href{http://pep8online.com}{esta página} puede chequear
+    si su código aprueba \texttt{PEP8}. También hay utilidades en la línea de
+    comando que permiten hacer la prueba directamente en sus computadores: 
+    
+    \texttt{>\ pip install pycodestyle}\\
+    \texttt{>\ pycodestyle <filename>}
+
+  \item La tarea se entrega subiendo su trabajo a github. Cuando termine
+    asegúrese de hacer un último \texttt{commit} y luego un \texttt{push} para
+    subir todo su trabajo a github.
+
+  \item El informe debe ser entregado en formato \texttt{pdf}, este debe ser
+    claro sin información de más ni de menos. \textbf{Esto es muy importante,
+    no escriba de más, esto no mejorará su nota sino que al contrario}. Por
+    ejemplo, la presente tarea probablemente no requiere informes de más de 4
+    páginas en total (esto no es una regla estricta, sólo una referencia útil).
+    Asegúrese de utilizar figuras efectivas y tablas para resumir sus
+    resultados. Revise su ortografía.
+
+  \item Repartición de puntaje: 45\% implementación y resolución del problema
+    (independiente de la calidad de su código); 40\% calidad del reporte
+    entregado: demuestra comprensión del problema y su solución, claridad del
+    lenguaje, calidad de las figuras utilizadas; 5\% aprueba o no
+    \texttt{PEP8} (acá es todo o nada); 5\% uso apropopiado de \texttt{git}; 5\%
+    diseño del código: modularidad, uso efectivo de nombres de variables y
+    funciones, docstrings, etc.
+
+\end{itemize}
+
+\end{document}
